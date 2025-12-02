@@ -1,0 +1,63 @@
+Step 1: Login to AWS /canvas account
+Step 2: Services --  EC2
+Step 3: Choose region which is near ?  
+	Services -- EC2 --- Launch Instance 
+	Stage 1  --Name (Giving name to the machine) ubuntu
+	Stage 2  -- Select AMI  ( Note: Select free tier eligible ) ubuntu server
+	Stage 3   --  Architecture as 64-bit	  
+	Stage 4  --  Instance type ----  t2.micro(default 1 CPU,1 GB RAM)
+	Stage 5  --  Create a new keypair---a keypair will downloaded  with extension .pem
+                              Store key in folder AWS
+	Stage 6  -- Network Setting ----Create Security group  --  ( It deals with ports )
+Do this step : HERE select http and https
+   Stage 7 -- Storage - 8GB ( Observation - we have root - it is same as C Drive)
+         Stage 8 --- click on launch instance
+    Stage 9: Number of instances ---1
++++++++++++++++++++++++++++++++
+Observation - One machines created
+Do this step:---once it is created select that instance and click on connect
+Here copy the ssh – i command from SSH client connect tab
+We can use powershell /gitbash /webconsole , to connect to ubuntu machine.
+NOTE:- cd path of AWS folder // change path
+To connect to above terminals we need to go into the path of the keypair.and 
+paste  the
+ ssh -i command from the aws console
+Step 1:-  Run the following commands to install s/w
+sudo apt update
+2.	Install docker by command
+sudo apt-get install docker.io
+3.	Install git by command
+sudo apt install git
+4.	Install nano( text editor) by command
+Sudo apt install nano
+step 2:-  git clone <paste the github link of maven-web-java project>
+step 3:- navigate to the maven-web-java project
+Step 4:-  nano Dockerfile 
+  #Use an official Java runtime as a parent image
+FROM tomcat:9-jdk11
+
+#Copy the built WAR file to the Tomcat webapps directory COPY**/*.war /usr/local/tomcat/webapps/
+
+#Expose the port Tomcat is running on
+
+#EXPOSE 8080
+
+#Start Tomcat server
+
+#CMD ["catalina.sh", "run"]
+
+Step 1:- build your image 
+	docker build –t <imagename> .(dot)
+Step 2:- check for images
+Step 3:- run image
+	docker  run –d  --name app-demo –p 6060:8080 <image name>
+Step:-4 Accessing the app by public ip of virtual machine
+
+dockerfile for deploying index.html from your computer not by maven:
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+
+sudo docker build –t mywebapp .
+sudo docker run –d –p 80:80 mywebapp
+Go to instances and click on instance here
+:  Copy public ipv4 address
